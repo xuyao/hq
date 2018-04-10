@@ -46,7 +46,7 @@ public class JobService extends LogService{
 				double totallow = abLow.getAsk1()*amount*0.998;//exx 总共花费
 				amount = amount-fee;//去掉转帐数量
 				double totalhigh = abHigh.getBid1()*amount*0.998;//zb 总共花费
-				if(totallow-totalhigh>100){
+				if(totallow-totalhigh>10){
 					logger.info(exname+"从"+abLow.getExg()+"买："+abLow.getAsk1() +" 到"+
 							abHigh.getExg()+"卖："+abHigh.getBid1()+" "+(totallow-totalhigh));
 				}
