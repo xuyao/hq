@@ -31,7 +31,7 @@ public class JobService extends LogService{
 				amount = amount-fee;//去掉转帐数量
 				double totalzb = zbab.getBid1()*amount*0.999;//zb 总共花费
 				if(totalzb>totalexx){
-					logger.info(market+"从exx买："+exxab.getAsk1() +" 到zb卖："+zbab.getBid1());
+					logger.info(market+"从exx买："+exxab.getAsk1() +" 到zb卖："+zbab.getBid1()+" "+(totalzb-totalexx));
 				}
 			}
 			
@@ -41,12 +41,10 @@ public class JobService extends LogService{
 				amount = amount-fee;//去掉转帐数量
 				double totalexx = exxab.getBid1()*amount*0.999;//exx 总共花费
 				if(totalexx > totalzb){
-					logger.info(market+"从zb买："+zbab.getAsk1() +" 到exx卖："+zbab.getBid1());
+					logger.info(market+"从zb买："+zbab.getAsk1() +" 到exx卖："+exxab.getBid1()+" "+(totalexx-totalzb));
 				}
 			}
 		}
-
-		
 		
 		logger.info(".");
 	}
