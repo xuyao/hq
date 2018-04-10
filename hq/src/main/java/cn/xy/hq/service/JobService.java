@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.xy.hq.util.NumberUtil;
 import cn.xy.hq.vo.AskBid;
 import cn.xy.hq.vo.Exn;
 
@@ -43,12 +44,14 @@ public class JobService extends LogService{
 			
 			if(abLow !=null && abHigh != null){
 				double amount = Math.min(abLow.getAsk1_amount(), abHigh.getBid1_amount());
+				amount = NumberUtil.formatDouble(amount,8);
 				double totallow = abLow.getAsk1()*amount*0.998;//exx 总共花费
 				amount = amount-fee;//去掉转帐数量
 				double totalhigh = abHigh.getBid1()*amount*0.998;//zb 总共花费
-				if(totallow-totalhigh>10){
-					logger.info(exname+"从"+abLow.getExg()+"买："+abLow.getAsk1() +" 到"+
-							abHigh.getExg()+"卖："+abHigh.getBid1()+" "+(totallow-totalhigh));
+				if(totalhigh-totallow>5){
+					logger.info(exname+" "+abLow.getExg()+"买："+abLow.getAsk1() +" "+
+							abHigh.getExg()+"卖："+abHigh.getBid1()+" 数量:"+ 
+							amount +" "+(totalhigh - totallow));
 				}
 			}
 		}
