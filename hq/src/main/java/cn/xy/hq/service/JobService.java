@@ -1,47 +1,54 @@
 package cn.xy.hq.service;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.xy.hq.fee.Market;
 import cn.xy.hq.vo.AskBid;
+import cn.xy.hq.vo.Exn;
 
 @Service
 public class JobService extends LogService{
 	
 	@Autowired
-	ExxHqService exxHqService;
-	
+	ExnService exnService;
 	@Autowired
-	ZbHqService zbHqService;
+	MarketFactory marketFactory;
 	
 	public void work(){
-		Iterator it = Market.map.keySet().iterator();
-		while(it.hasNext()){
-			String market = (String)it.next();
-			AskBid exxab = exxHqService.getAskBid(market);
-			AskBid zbab = zbHqService.getAskBid(market);
-			double fee = Market.map.get(market);
+		List<Exn> list = exnService.exnlist;
+		
+		for(Exn exn : list){
+			String exname = exn.getExn();//交易对
+			double fee = exn.getWdfee();
+			List<String> exgs = exn.getExgs();//交易所
 			
-			if(exxab.getAsk1() < zbab.getBid1()){
-				double amount = Math.min(exxab.getAsk1_amount(), zbab.getBid1_amount());
-				double totalexx = exxab.getAsk1()*amount*0.999;//exx 总共花费
-				amount = amount-fee;//去掉转帐数量
-				double totalzb = zbab.getBid1()*amount*0.999;//zb 总共花费
-				if(totalzb>totalexx){
-					logger.info(market+"从exx买："+exxab.getAsk1() +" 到zb卖："+zbab.getBid1()+" "+(totalzb-totalexx));
-				}
+			AskBid abLow = null;//ab最低价格
+			AskBid abHigh = null;//ab最高价格
+			for(String exg : exgs){
+				BaseService bs = marketFactory.getMarketService(exg);
+				AskBid ab = bs.getAskBid(exname);
+				ab.setExg(exg);
+				if(abLow==null)
+					abLow = ab;
+				if(abHigh==null)
+					abHigh = ab;
+				if(abLow.getAsk1()>ab.getAsk1())//如果最低的那个卖一高，换成当前
+					abLow = ab;
+				if(abHigh.getBid1()<ab.getBid1())//如果最低的那个买一低，换成当前
+					abHigh = ab;
+//				logger.info(exname+" 市场："+ab.getMarket()+" 卖一："+ab.getAsk1() + " 买一："+ab.getBid1());
 			}
 			
-			if(exxab.getBid1() > zbab.getAsk1()){
-				double amount = Math.min(exxab.getAsk1_amount(), zbab.getBid1_amount());
-				double totalzb = zbab.getAsk1()*amount*0.999;//zb 总共花费
+			if(abLow !=null && abHigh != null){
+				double amount = Math.min(abLow.getAsk1_amount(), abHigh.getBid1_amount());
+				double totallow = abLow.getAsk1()*amount*0.998;//exx 总共花费
 				amount = amount-fee;//去掉转帐数量
-				double totalexx = exxab.getBid1()*amount*0.999;//exx 总共花费
-				if(totalexx > totalzb){
-					logger.info(market+"从zb买："+zbab.getAsk1() +" 到exx卖："+exxab.getBid1()+" "+(totalexx-totalzb));
+				double totalhigh = abHigh.getBid1()*amount*0.998;//zb 总共花费
+				if(totallow-totalhigh>100){
+					logger.info(exname+"从"+abLow.getExg()+"买："+abLow.getAsk1() +" 到"+
+							abHigh.getExg()+"卖："+abHigh.getBid1()+" "+(totallow-totalhigh));
 				}
 			}
 		}

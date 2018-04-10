@@ -5,14 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import cn.xy.hq.vo.AskBid;
-import cn.xy.hq.vo.Ticker;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
 @Service
-public class ZbHqService extends LogService{
+public class ZbHqService extends LogService implements BaseService{
 
 	@Autowired
 	HttpService httpService;
@@ -21,7 +19,6 @@ public class ZbHqService extends LogService{
 	public AskBid getAskBid(String market){
 		String ha = "http://api.bitkk.com/data/v1/depth?market="+market+"&size=2";
 		String result = httpService.get(ha);
-//		System.out.println(market+result);
 		if(StringUtils.isEmpty(result))//如果行情没取到直接返回
 			return null;
 
@@ -41,29 +38,6 @@ public class ZbHqService extends LogService{
 		return ab;
 	}
 	
-	
-	public Ticker getTicker(String currency) {
-		Ticker ticker = null;
-		try {
-			// 请求地址
-			String url = "http://api.bitkk.com/data/v1/ticker?market=" + currency;
-			String result = httpService.get(url);
-			JSONObject jsonObj = JSONObject.parseObject(result);
-			jsonObj = jsonObj.getJSONObject("ticker");
-			ticker = new Ticker();
-			ticker.setBuy(jsonObj.getDouble("buy"));
-			ticker.setHigh(jsonObj.getDouble("high"));
-			ticker.setLast(jsonObj.getDouble("last"));
-			ticker.setLow(jsonObj.getDouble("low"));
-			ticker.setSell(jsonObj.getDouble("sell"));
-			ticker.setVol(jsonObj.getDouble("vol"));
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return ticker;
-	}
-	
-
 	public HttpService getHttpService() {
 		return httpService;
 	}

@@ -4,6 +4,7 @@ package cn.xy.hq.vo;
  * 	买卖价格和数量
  * */
 public class AskBid {
+	private String exg;//交易所
 	private String market;//市场
 	private Double ask1;//卖1价格
 	private Double ask2;//卖2价格
@@ -15,6 +16,12 @@ public class AskBid {
 	private Double bid1_amount;//买1数量
 	private Double bid2_amount;//买2数量
 	
+	public String getExg() {
+		return exg;
+	}
+	public void setExg(String exg) {
+		this.exg = exg;
+	}
 	public String getMarket() {
 		return market;
 	}
