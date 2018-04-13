@@ -4,7 +4,6 @@
 {"exn":"eth_usdt","exg":["zb","okex","gateio"],"wdfee":0.01},
 {"exn":"etc_usdt","exg":["zb","okex","gateio"],"wdfee":0.01},
 {"exn":"eos_usdt","exg":["zb","okex","gateio"],"wdfee":1.0},
-{"exn":"eos_usdt","exg":["zb","gateio"],"wdfee":1.0},
 {"exn":"qtum_usdt","exg":["zb","okex","gateio"],"wdfee":0.01},
 {"exn":"hsr_usdt","exg":["zb","okex","gateio"],"wdfee":0.001},
 {"exn":"xrp_usdt","exg":["zb","okex","gateio"],"wdfee":1},
