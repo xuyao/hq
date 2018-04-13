@@ -12,6 +12,8 @@ public class MarketFactory {
 	ZbHqService zbHqService;
 	@Autowired
 	OkexService okexService;
+	@Autowired
+	GateIoService gateIoService;
 	
 	public BaseService getMarketService(String market){
 		switch (market)
@@ -19,6 +21,7 @@ public class MarketFactory {
 		    case "zb":return zbHqService;
 		    case "exx":return exxHqService;
 		    case "okex":return okexService;
+		    case "gateio":return gateIoService;
 		    default:return null ;
 		}
 		

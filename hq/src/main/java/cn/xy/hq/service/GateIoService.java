@@ -10,14 +10,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
 @Service
-public class ZbHqService extends LogService implements BaseService{
+public class GateIoService extends LogService implements BaseService{
 
 	@Autowired
 	HttpService httpService;
 	
 	//得到挂单的买卖价格和数量
 	public AskBid getAskBid(String market){
-		String ha = "http://api.bitkk.com/data/v1/depth?market="+market+"&size=2";
+		String ha = "http://data.gateio.io/api2/1/orderBook/"+market;
 		String result = httpService.get(ha);
 		if(StringUtils.isEmpty(result))//如果行情没取到直接返回
 			return null;

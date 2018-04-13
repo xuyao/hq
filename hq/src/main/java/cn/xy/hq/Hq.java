@@ -13,5 +13,5 @@ public class Hq {
 		ExnService exnService = (ExnService)context.getBean("exnService");
 		exnService.parse();
     }
-    
+
 }

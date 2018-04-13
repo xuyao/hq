@@ -39,7 +39,7 @@ public class JobService extends LogService{
 					abLow = ab;
 				if(abHigh.getBid1()<ab.getBid1())//如果最低的那个买一低，换成当前
 					abHigh = ab;
-//				logger.info(exname+" 市场："+ab.getMarket()+" 卖一："+ab.getAsk1() + " 买一："+ab.getBid1());
+//				logger.info(exname+" 市场："+ab.getExg()+" 卖一："+ab.getAsk1() + " 买一："+ab.getBid1());
 			}
 			
 			if(abLow !=null && abHigh != null){
@@ -56,7 +56,7 @@ public class JobService extends LogService{
 			}
 		}
 		
-		logger.info(".");
+//		logger.info(".");
 	}
 	
 	
