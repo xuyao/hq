@@ -35,6 +35,7 @@ public class Coin {
 		exgmap.put("poloniex", "P网");
 		exgmap.put("gdax", "GDAX");
 		exgmap.put("bitfinex", "Bitfinex");
+
 		exgmap.put("cointiger", "CoinTiger");
 		exgmap.put("dragonex", "DragonEx");
 		exgmap.put("coinbene", "满币网");
@@ -45,6 +46,7 @@ public class Coin {
 		exgmap.put("kkcoin", "KKCoin");
 		exgmap.put("aex", "AEX");
 		
+
 //		exgmap.put("upbit", "Upbit");
 		
 	}
