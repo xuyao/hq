@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
 @Service
-public class ExxHqService extends LogService implements BaseService{
+public class ExxService extends LogService implements BaseService{
 
 	@Autowired
 	HttpService httpService;
@@ -36,16 +36,6 @@ public class ExxHqService extends LogService implements BaseService{
 		ab.setBid1_amount(bids1.getDouble(1));
 		ab.setMarket(market);
 		return ab;
-	}
-	
-	
-	public HttpService getHttpService() {
-		return httpService;
-	}
-
-
-	public void setHttpService(HttpService httpService) {
-		this.httpService = httpService;
 	}
 	
 	

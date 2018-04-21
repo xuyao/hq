@@ -35,6 +35,18 @@ public class Coin {
 		exgmap.put("poloniex", "P网");
 		exgmap.put("gdax", "GDAX");
 		exgmap.put("bitfinex", "Bitfinex");
+
+		exgmap.put("cointiger", "CoinTiger");
+		exgmap.put("dragonex", "DragonEx");
+		exgmap.put("coinbene", "满币网");
+		exgmap.put("shuzibi", "DigiFinex数字币交易所");
+		exgmap.put("oex", "OEX");
+		exgmap.put("hellobts", "hellobts");
+		exgmap.put("ucx", "UCX");
+		exgmap.put("kkcoin", "KKCoin");
+		exgmap.put("aex", "AEX");
+		
+
 //		exgmap.put("upbit", "Upbit");
 		
 	}

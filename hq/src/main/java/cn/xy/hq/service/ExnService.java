@@ -21,7 +21,7 @@ public class ExnService extends LogService{
 	public List<Exn> exnlist = new ArrayList<Exn>();;
 	
 	public void parse(){
-		URL url = ExnService.class.getClassLoader().getResource("m.json");
+		URL url = ExnService.class.getClassLoader().getResource("usdt.json");
 	    File file = new File(url.getFile());
 		String json ="";
 		try {

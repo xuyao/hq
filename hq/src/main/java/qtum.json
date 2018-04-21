@@ -1,0 +1,7 @@
+[
+{"exn":"bot_qtum","exg":["gateio"],"wdfee":0.005},
+{"exn":"qbt_qtum","exg":["gateio"],"wdfee":0.01},
+{"exn":"ink_qtum","exg":["gateio"],"wdfee":0.01},
+{"exn":"med_qtum","exg":["gateio"],"wdfee":1.0},
+{"exn":"tsl_qtum","exg":["gateio"],"wdfee":1.0}
+]

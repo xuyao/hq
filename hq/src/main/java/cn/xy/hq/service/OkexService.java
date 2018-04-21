@@ -38,14 +38,5 @@ public class OkexService extends LogService implements BaseService{
 		return ab;
 	}
 	
-	public HttpService getHttpService() {
-		return httpService;
-	}
-
-
-	public void setHttpService(HttpService httpService) {
-		this.httpService = httpService;
-	}
-	
 	
 }
