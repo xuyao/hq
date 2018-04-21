@@ -13,6 +13,9 @@ import cn.xy.hq.fx.Coin;
 import cn.xy.hq.fx.HttpService;
 import cn.xy.hq.fx.TaskService;
 
+import cn.xy.hq.fx.Coin;
+import cn.xy.hq.fx.TaskService;
+
 public class FxHq {
 	
     public static void main(String[] args){
@@ -37,7 +40,7 @@ public class FxHq {
 //    		.append(jo.getString("name")).append("\n");
 //    	}
 //    	try {
-//			FileUtils.writeStringToFile(new File("d:\\coin.txt"), sb.toString(),"utf-8");
+//			FileUtils.writeStringToFile(new File("f:\\coin.txt"), sb.toString(),"utf-8");
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}

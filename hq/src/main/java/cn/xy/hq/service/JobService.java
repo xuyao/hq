@@ -18,18 +18,28 @@ public class JobService extends LogService{
 	MarketFactory marketFactory;
 	
 	public void work(){
+		
 		List<Exn> list = exnService.exnlist;
 		
 		for(Exn exn : list){
 			String exname = exn.getExn();//交易对
-			double fee = exn.getWdfee();
+			Double fee = exnService.feemap.get(exn.getExn().split("_")[0]);
+			if(fee==null)
+				fee = 0.0;
 			List<String> exgs = exn.getExgs();//交易所
-			
+			if(exgs==null || exgs.size()<2)//交易所小于2个无法比较
+				continue;//skip this loop
+				
 			AskBid abLow = null;//ab最低价格
 			AskBid abHigh = null;//ab最高价格
 			for(String exg : exgs){
 				BaseService bs = marketFactory.getMarketService(exg);
+				if(bs==null)
+					continue;
 				AskBid ab = bs.getAskBid(exname);
+//				System.out.println(exname+" "+exg);
+				if(ab==null)
+					continue;
 				ab.setExg(exg);
 				if(abLow==null)
 					abLow = ab;
@@ -43,21 +53,16 @@ public class JobService extends LogService{
 			}
 			
 			if(abLow !=null && abHigh != null){
-				double amount = Math.min(abLow.getAsk1_amount(), abHigh.getBid1_amount());
-				amount = NumberUtil.formatDouble(amount,8);
-				double totallow = abLow.getAsk1()*amount*0.998;//exx 总共花费
-				amount = amount-fee;//去掉转帐数量
-				double totalhigh = abHigh.getBid1()*amount*0.998;//zb 总共花费
-				if(totalhigh-totallow>5){
-					logger.info(exname+" "+abLow.getExg()+"买："+abLow.getAsk1() +" "+
-							abHigh.getExg()+"卖："+abHigh.getBid1()+" 数量:"+ 
-							amount +" "+(totalhigh - totallow));
+				double totallow = abLow.getAsk1()*0.998;//exx 总共花费
+				double totalhigh = abHigh.getBid1()*0.998;//zb 总共花费
+				if((totalhigh-totallow)/totallow>0.02){
+					logger.info(exname+" "+abLow.getExg()+"买："+NumberUtil.big(abLow.getAsk1(), 8) +" "+
+							abHigh.getExg()+"卖："+NumberUtil.big(abHigh.getBid1(), 8)+" 提币:"+ 
+							fee +" "+(totalhigh/totallow-1));
 				}
 			}
 		}
-		
-//		logger.info(".");
+		logger.info("************************");
 	}
-	
 	
 }

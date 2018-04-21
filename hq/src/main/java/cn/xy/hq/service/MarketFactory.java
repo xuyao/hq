@@ -7,21 +7,30 @@ import org.springframework.stereotype.Service;
 public class MarketFactory {
 
 	@Autowired
-	ExxHqService exxHqService;
+	ExxService exxService;
 	@Autowired
-	ZbHqService zbHqService;
+	ZbService zbService;
 	@Autowired
 	OkexService okexService;
 	@Autowired
 	GateIoService gateIoService;
+	@Autowired
+	BinanceService binanceService;
+	@Autowired
+	HuobiService huobiService;
+	@Autowired
+	AexService aexService;
 	
 	public BaseService getMarketService(String market){
 		switch (market)
 		{
-		    case "zb":return zbHqService;
-		    case "exx":return exxHqService;
+		    case "zb":return zbService;
+		    case "exx":return exxService;
 		    case "okex":return okexService;
 		    case "gateio":return gateIoService;
+//		    case "binance":return binanceService;
+		    case "huobi":return huobiService;
+		    case "aex":return aexService;
 		    default:return null ;
 		}
 		

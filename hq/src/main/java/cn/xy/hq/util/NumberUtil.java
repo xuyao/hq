@@ -2,6 +2,7 @@ package cn.xy.hq.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.Random;
 
 public class NumberUtil {
@@ -67,6 +68,12 @@ public class NumberUtil {
         return formatDoubleHP(d,3);
     }
     
+    //四舍五入
+    public static BigDecimal big(double d, int scale) {
+        BigDecimal bd = new BigDecimal(d);  
+        bd = bd.setScale(scale, RoundingMode.HALF_UP);  
+        return bd;
+    }
     
     public static void main(String[] args){
       System.out.println(geScaretDouble(1,9));

@@ -6,7 +6,6 @@ public class Exn {
 
 	private String exn;
 	private List<String> exgs;
-	private double wdfee;
 
 	public String getExn() {
 		return exn;
@@ -24,12 +23,4 @@ public class Exn {
 		this.exgs = exgs;
 	}
 
-	public double getWdfee() {
-		return wdfee;
-	}
-
-	public void setWdfee(double wdfee) {
-		this.wdfee = wdfee;
-	}
-	
 }

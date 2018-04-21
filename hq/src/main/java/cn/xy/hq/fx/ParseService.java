@@ -56,7 +56,7 @@ public class ParseService extends LogService{
 		if(exnlow==null || exnhigh==null)
 			return;
 		if((exnhigh.getCurrent_price_cny()-exnlow.getCurrent_price_cny())
-				/(exnlow.getCurrent_price_cny())>0.08){
+				/(exnlow.getCurrent_price_cny())>0.1){
 			String buy = exnlow.getPlatform()+","+exnlow.getPlatform_name()+"买价:"+exnlow.getCurrent_price()
 					+" "+exnlow.getCurrent_price_cny()+" 交易对"+exnlow.getMarket();
 			String sell = exnhigh.getPlatform()+","+exnhigh.getPlatform_name()+"卖价："+exnhigh.getCurrent_price()
