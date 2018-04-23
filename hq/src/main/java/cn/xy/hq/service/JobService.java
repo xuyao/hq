@@ -29,7 +29,7 @@ public class JobService extends LogService{
 			List<String> exgs = exn.getExgs();//交易所
 			if(exgs==null || exgs.size()<2)//交易所小于2个无法比较
 				continue;//skip this loop
-				
+			
 			AskBid abLow = null;//ab最低价格
 			AskBid abHigh = null;//ab最高价格
 			for(String exg : exgs){
