@@ -21,7 +21,8 @@ public class BinanceService extends LogService implements BaseService{
 	//得到挂单的买卖价格和数量
 	public AskBid getAskBid(String market){
 		BinanceApiRestClient client = BinanceApiClientFactory.newInstance().newRestClient();
-		OrderBook ob = client.getOrderBook(market,2);
+		market = market.replaceAll("_", "").toUpperCase();
+		OrderBook ob = client.getOrderBook(market,5);
 		List<OrderBookEntry> asks = ob.getAsks();
 		List<OrderBookEntry> bids = ob.getBids();
 		AskBid ab = new AskBid();

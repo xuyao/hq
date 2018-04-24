@@ -28,7 +28,7 @@ public class MarketFactory {
 		    case "exx":return exxService;
 		    case "okex":return okexService;
 		    case "gateio":return gateIoService;
-//		    case "binance":return binanceService;
+		    case "binance":return binanceService;
 		    case "huobi":return huobiService;
 		    case "aex":return aexService;
 		    default:return null ;

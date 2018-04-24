@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.xy.hq.util.ConstsUtil;
 import cn.xy.hq.util.NumberUtil;
 import cn.xy.hq.vo.AskBid;
 import cn.xy.hq.vo.Exn;
@@ -16,6 +17,9 @@ public class JobService extends LogService{
 	ExnService exnService;
 	@Autowired
 	MarketFactory marketFactory;
+	
+	String no = ConstsUtil.getValue("no");
+	double percent = Double.parseDouble(ConstsUtil.getValue("percent"));
 	
 	public void work(){
 		
@@ -36,7 +40,7 @@ public class JobService extends LogService{
 				BaseService bs = marketFactory.getMarketService(exg);
 				if(bs==null)
 					continue;
-//				System.out.println(exname+" "+exg);
+				System.out.println(exname+" "+exg);
 				AskBid ab = bs.getAskBid(exname);
 				if(ab==null)
 					continue;
@@ -55,14 +59,14 @@ public class JobService extends LogService{
 			if(abLow !=null && abHigh != null){
 				double totallow = abLow.getAsk1()*0.998;//exx 总共花费
 				double totalhigh = abHigh.getBid1()*0.998;//zb 总共花费
-				if((totalhigh-totallow)/totallow>0.02){
+				if((totalhigh-totallow)/totallow>percent){
 					logger.info(exname+" "+abLow.getExg()+"买："+NumberUtil.big(abLow.getAsk1(), 8) +" "+
 							abHigh.getExg()+"卖："+NumberUtil.big(abHigh.getBid1(), 8)+" 提币:"+ 
 							fee +" "+(totalhigh/totallow-1));
 				}
 			}
 		}
-		logger.info("************************");
+		logger.info("**********************"+no);
 	}
 	
 }
