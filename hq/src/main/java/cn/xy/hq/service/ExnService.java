@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -12,9 +12,6 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 import cn.xy.hq.vo.Exn;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
 @Service
 public class ExnService extends LogService{
@@ -24,22 +21,20 @@ public class ExnService extends LogService{
 	
 	public void parse(){
 		//exn init
-		URL url = ExnService.class.getClassLoader().getResource("usdt.json");
+		URL url = ExnService.class.getClassLoader().getResource("coinexg.txt");
 	    File file = new File(url.getFile());
-		String json ="";
+		List<String> txts = null;
 		try {
-			json = FileUtils.readFileToString(file, "utf-8");
+			txts = FileUtils.readLines(file, "utf-8");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		JSONArray jsonarr = JSONArray.parseArray(json);
-		Iterator it = jsonarr.iterator();
-		while(it.hasNext()){
-			JSONObject jsonObj = (JSONObject)it.next();
+		for(String txt : txts){
+			String[] s = txt.split(":");
 			Exn exn = new Exn();
-			exn.setExn(jsonObj.getString("exn"));
-			exn.setExgs(jsonObj.getJSONArray("exg").toJavaList(String.class));
+			exn.setExn(s[0]);
+			exn.setExgs(Arrays.asList(s[1].split(",")));
 			exnlist.add(exn);
 		}
 		

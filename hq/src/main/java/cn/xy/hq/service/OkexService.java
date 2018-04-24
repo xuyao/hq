@@ -24,7 +24,8 @@ public class OkexService extends LogService implements BaseService{
 
 		JSONArray asksArr = JSON.parseObject(result).getJSONArray("asks");
 		JSONArray bidsArr = JSON.parseObject(result).getJSONArray("bids");
-		if(asksArr==null || bidsArr==null)
+		if(asksArr==null || bidsArr==null
+				|| asksArr.size()==0 || bidsArr.size()==0)
 			return null;
 		JSONArray asks1 = asksArr.getJSONArray(asksArr.size()-1);
 		JSONArray bids1 = bidsArr.getJSONArray(0);

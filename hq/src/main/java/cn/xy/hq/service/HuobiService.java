@@ -27,7 +27,8 @@ public class HuobiService extends LogService implements BaseService{
 		jsonobject = jsonobject.getJSONObject("tick");
 		JSONArray asksArr = jsonobject.getJSONArray("asks");
 		JSONArray bidsArr = jsonobject.getJSONArray("bids");
-		if(asksArr==null || bidsArr==null)
+		if(asksArr==null || bidsArr==null
+				|| asksArr.size()==0 || bidsArr.size()==0)
 			return null;
 		JSONArray asks1 = asksArr.getJSONArray(asksArr.size()-1);
 		JSONArray bids1 = bidsArr.getJSONArray(0);

@@ -36,8 +36,8 @@ public class JobService extends LogService{
 				BaseService bs = marketFactory.getMarketService(exg);
 				if(bs==null)
 					continue;
-				AskBid ab = bs.getAskBid(exname);
 //				System.out.println(exname+" "+exg);
+				AskBid ab = bs.getAskBid(exname);
 				if(ab==null)
 					continue;
 				ab.setExg(exg);
