@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import cn.xy.hq.service.CoinwService;
 import cn.xy.hq.service.HttpService;
 
 import com.alibaba.fastjson.JSONArray;
@@ -23,7 +25,8 @@ import com.binance.api.client.domain.general.SymbolInfo;
 public class CoinExgUtil {
 
 	public static void main(String[] args){
-		String coinexgpath = ConstsUtil.getValue("coinexgpath");
+		String coinexgpath1 = ConstsUtil.getValue("coinexgpath1");
+		String coinexgpath2 = ConstsUtil.getValue("coinexgpath2");
 		HttpService http = new HttpService();
 		
 		TreeMap<String,List<String>> map = new TreeMap<String,List<String>>();
@@ -181,16 +184,50 @@ public class CoinExgUtil {
 		}
 		
 		
+		/** coinw*/
+		CoinwService cs = new CoinwService();
+		cs.init();
+		Map<String,String> coinwMap = cs.map;
+		it = coinwMap.keySet().iterator();
+		while(it.hasNext()){
+			String market = (String)it.next();
+			if(map.get(market)==null){
+			list = new ArrayList<String>();
+			list.add("coinw");
+			map.put(market, list);
+		}else{
+			list = map.get(market);
+			list.add("coinw");
+		}
+		}
+		
+		
 		/** write to file*/
-		List<String> result = new ArrayList<String>();
+		List<String> result1 = new ArrayList<String>();
+		List<String> result2 = new ArrayList<String>();
 		Iterator itmap = map.keySet().iterator();
+		int i = 1;
         while (itmap.hasNext()) {
             String s = (String)itmap.next();
-            result.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
+            if(s.startsWith("n"))
+            	break;
+            result1.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
+            i++;
+        }
+        
+        itmap = map.keySet().iterator();
+        while (itmap.hasNext()) {
+        	String s = (String)itmap.next();
+        	if(i>1){
+        		i--;
+        		continue;
+        	}
+            result2.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
         }
 
 		try {
-			FileUtils.writeLines(new File(coinexgpath), result);
+			FileUtils.writeLines(new File(coinexgpath1), result1);
+			FileUtils.writeLines(new File(coinexgpath2), result2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -20,6 +20,8 @@ public class MarketFactory {
 	HuobiService huobiService;
 	@Autowired
 	AexService aexService;
+	@Autowired
+	CoinwService coinwService;
 	
 	public BaseService getMarketService(String market){
 		switch (market)
@@ -31,6 +33,7 @@ public class MarketFactory {
 		    case "binance":return binanceService;
 		    case "huobi":return huobiService;
 		    case "aex":return aexService;
+		    case "coinw":return coinwService;
 		    default:return null ;
 		}
 		

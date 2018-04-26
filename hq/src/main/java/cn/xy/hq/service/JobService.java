@@ -20,7 +20,6 @@ public class JobService extends LogService{
 	
 	String no = ConstsUtil.getValue("no");
 	double percent = Double.parseDouble(ConstsUtil.getValue("percent"));
-
 	
 	public void work(){
 		List<Exn> list = exnService.exnlist;
@@ -36,7 +35,7 @@ public class JobService extends LogService{
 				BaseService bs = marketFactory.getMarketService(exg);
 				if(bs==null)
 					continue;
-				System.out.println(exname+" "+exg);
+//				System.out.println(exname+" "+exg);
 				AskBid ab = bs.getAskBid(exname);
 				if(ab==null)
 					continue;
