@@ -20,16 +20,12 @@ public class JobService extends LogService{
 	
 	String no = ConstsUtil.getValue("no");
 	double percent = Double.parseDouble(ConstsUtil.getValue("percent"));
+
 	
 	public void work(){
-		
 		List<Exn> list = exnService.exnlist;
-		
 		for(Exn exn : list){
 			String exname = exn.getExn();//交易对
-			Double fee = exnService.feemap.get(exn.getExn().split("_")[0]);
-			if(fee==null)
-				fee = 0.0;
 			List<String> exgs = exn.getExgs();//交易所
 			if(exgs==null || exgs.size()<2)//交易所小于2个无法比较
 				continue;//skip this loop
@@ -61,8 +57,7 @@ public class JobService extends LogService{
 				double totalhigh = abHigh.getBid1()*0.998;//zb 总共花费
 				if((totalhigh-totallow)/totallow>percent){
 					logger.info(exname+" "+abLow.getExg()+"买："+NumberUtil.big(abLow.getAsk1(), 8) +" "+
-							abHigh.getExg()+"卖："+NumberUtil.big(abHigh.getBid1(), 8)+" 提币:"+ 
-							fee +" "+(totalhigh/totallow-1));
+							abHigh.getExg()+"卖："+NumberUtil.big(abHigh.getBid1(), 8) +" "+(totalhigh/totallow-1));
 				}
 			}
 		}
