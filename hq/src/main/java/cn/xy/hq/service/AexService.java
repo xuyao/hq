@@ -18,6 +18,8 @@ public class AexService extends LogService implements BaseService{
 	//得到挂单的买卖价格和数量
 	public AskBid getAskBid(String market){
 		String[] sm = market.split("_");
+		if("qc".equals(sm[1]))
+			sm[1] = "cnc";
 		String ha = "https://api.aex.com/depth.php?c="+sm[0]+"&mk_type="+sm[1];
 		String result = httpService.get(ha);
 		if(StringUtils.isEmpty(result))//如果行情没取到直接返回
