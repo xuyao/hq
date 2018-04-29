@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -14,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import cn.xy.hq.util.ConstsUtil;
 import cn.xy.hq.vo.AskBid;
+import cn.xy.hq.vo.Balance;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -77,6 +79,41 @@ public class CoinwService extends LogService implements BaseService{
 			e.printStackTrace();
 		}
 		
+	}
+
+
+	@Override
+	public List<String> queryUnfinish(Balance bl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void order(Balance bl) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void cancelOrder(String orderId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Balance getBalance(Balance bl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Balance getPrecision(String currency, String market) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

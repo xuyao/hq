@@ -11,6 +11,7 @@ import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.OrderBookEntry;
 
 import cn.xy.hq.vo.AskBid;
+import cn.xy.hq.vo.Balance;
 
 @Service
 public class BinanceService extends LogService implements BaseService{
@@ -32,6 +33,36 @@ public class BinanceService extends LogService implements BaseService{
 		ab.setBid1_amount(Double.parseDouble(bids.get(0).getQty()));
 		ab.setMarket(market);
 		return ab;
+	}
+
+	@Override
+	public List<String> queryUnfinish(Balance bl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void order(Balance bl) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelOrder(String orderId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Balance getBalance(Balance bl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Balance getPrecision(String currency, String market) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

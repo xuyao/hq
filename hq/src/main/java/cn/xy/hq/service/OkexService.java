@@ -1,10 +1,13 @@
 package cn.xy.hq.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import cn.xy.hq.vo.AskBid;
+import cn.xy.hq.vo.Balance;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -37,6 +40,36 @@ public class OkexService extends LogService implements BaseService{
 		ab.setBid1_amount(bids1.getDouble(1));
 		ab.setMarket(market);
 		return ab;
+	}
+
+	@Override
+	public List<String> queryUnfinish(Balance bl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void order(Balance bl) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelOrder(String orderId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Balance getBalance(Balance bl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Balance getPrecision(String currency, String market) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
