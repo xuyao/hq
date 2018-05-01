@@ -53,7 +53,7 @@ public class CoinExgUtil {
 		
 		
 		/** okex */
-	    html = http.get("https://www.okex.cn/v2/spot/markets/products");
+	    html = http.get("https://www.okex.com/v2/spot/markets/products");
 		JSONObject jsonObj= JSONObject.parseObject(html);
 		jsonArr = jsonObj.getJSONArray("data");
 		it = jsonArr.iterator();
