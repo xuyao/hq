@@ -1,27 +1,26 @@
 package cn.xy.hq.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import cn.xy.hq.vo.AskBid;
-import cn.xy.hq.vo.Balance;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import cn.xy.hq.vo.AskBid;
+
 @Service
-public class OkexService extends LogService implements BaseService{
+public class PoloniexService extends LogService implements BaseService{
 
 	@Autowired
 	HttpService httpService;
 	
 	//得到挂单的买卖价格和数量
 	public AskBid getAskBid(String market){
-		String ha = "https://www.okex.com/api/v1/depth.do?symbol="+market+"&size=2";
+		String[] marketarr = market.split("_");
+		String symbol = marketarr[1]+"_"+marketarr[0];
+		String ha = "https://poloniex.com/public?command=returnOrderBook&currencyPair="+symbol.toUpperCase()+"&depth=2";
 		String result = httpService.get(ha);
 		if(StringUtils.isEmpty(result))//如果行情没取到直接返回
 			return null;

@@ -32,8 +32,10 @@ public class HuobiService extends LogService implements BaseService{
 
     private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
 	
-    private String apiKey = "";
-    private String secret = "";
+    private String apiKey = "340de027-425b5c48-8c93e922-c7598";
+    private String secret = "431e96fe-07eca6b3-00ff32a2-426dd";
+//    private String apiKey = "598ca4b9-6eec9e98-85558cae-c94a0";
+//    private String secret = "e9b6921b-bacc2dcf-9f3a626f-5b389";
 	
 	
 	//得到挂单的买卖价格和数量

@@ -35,34 +35,34 @@ public class BinanceService extends LogService implements BaseService{
 		return ab;
 	}
 
-	@Override
-	public List<String> queryUnfinish(Balance bl) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void order(Balance bl) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cancelOrder(String orderId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Balance getBalance(Balance bl) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Balance getPrecision(String currency, String market) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<String> queryUnfinish(Balance bl) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public void order(Balance bl) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void cancelOrder(String orderId) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public Balance getBalance(Balance bl) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Balance getPrecision(String currency, String market) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

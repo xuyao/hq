@@ -27,6 +27,7 @@ public class CoinExgUtil {
 	public static void main(String[] args){
 		String coinexgpath1 = ConstsUtil.getValue("coinexgpath1");
 		String coinexgpath2 = ConstsUtil.getValue("coinexgpath2");
+		String coinexgpath3 = ConstsUtil.getValue("coinexgpath3");
 		HttpService http = new HttpService();
 		
 		TreeMap<String,List<String>> map = new TreeMap<String,List<String>>();
@@ -53,7 +54,7 @@ public class CoinExgUtil {
 		
 		
 		/** okex */
-	    html = http.get("https://www.okex.cn/v2/spot/markets/products");
+	    html = http.get("https://www.okex.com/v2/spot/markets/products");
 		JSONObject jsonObj= JSONObject.parseObject(html);
 		jsonArr = jsonObj.getJSONArray("data");
 		it = jsonArr.iterator();
@@ -205,32 +206,76 @@ public class CoinExgUtil {
 		}
 		
 		
+		/** poloniex */
+	    html = http.get("https://poloniex.com/public?command=returnTicker");
+	    jsonObj= JSONObject.parseObject(html);
+		keys = jsonObj.keySet();
+		it = keys.iterator();
+		while(it.hasNext()){
+			String symbol = (String)it.next();
+			String[] sarray = symbol.split("_");
+			symbol = sarray[1]+"_"+sarray[0];
+			symbol = symbol.toLowerCase();
+			if(symbol.endsWith("_usdt") || symbol.endsWith("_btc") 
+					|| symbol.endsWith("_eth")){
+				if(map.get(symbol)==null){
+					list = new ArrayList<String>();
+					list.add("poloniex");
+					map.put(symbol, list);
+				}else{
+					list = map.get(symbol);
+					list.add("poloniex");
+				}
+			}
+		}
+		
+		
 		/** write to file*/
 		List<String> result1 = new ArrayList<String>();
 		List<String> result2 = new ArrayList<String>();
+		List<String> result3 = new ArrayList<String>();
 		Iterator itmap = map.keySet().iterator();
-		int i = 1;
+		boolean go = true;//是否写入
         while (itmap.hasNext()) {
             String s = (String)itmap.next();
-            if(s.startsWith("n"))
+            if(s.startsWith("j")) {
+            	go = false;
             	break;
+            }
+            if(go)
             result1.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
-            i++;
         }
         
         itmap = map.keySet().iterator();
         while (itmap.hasNext()) {
         	String s = (String)itmap.next();
-        	if(i>1){
-        		i--;
-        		continue;
+        	if(s.startsWith("j")) {
+        		go = true;
         	}
+        	if(s.startsWith("s")) {
+        		go = false;
+        		break;
+        	}
+        	if(go)
             result2.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
         }
+        
+        
+        itmap = map.keySet().iterator();
+        while (itmap.hasNext()) {
+        	String s = (String)itmap.next();
+        	if(s.startsWith("s")) {
+        		go = true;
+        	}
+        	if(go)
+            result3.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
+        }
+        
 
 		try {
 			FileUtils.writeLines(new File(coinexgpath1), result1);
 			FileUtils.writeLines(new File(coinexgpath2), result2);
+			FileUtils.writeLines(new File(coinexgpath3), result3);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

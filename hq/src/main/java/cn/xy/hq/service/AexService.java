@@ -11,6 +11,7 @@ import cn.xy.hq.vo.Balance;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Service
 public class AexService extends LogService implements BaseService{
@@ -28,8 +29,9 @@ public class AexService extends LogService implements BaseService{
 		if(StringUtils.isEmpty(result))//如果行情没取到直接返回
 			return null;
 
-		JSONArray asksArr = JSON.parseObject(result).getJSONArray("asks");
-		JSONArray bidsArr = JSON.parseObject(result).getJSONArray("bids");
+		JSONObject jsonobj = JSON.parseObject(result);
+		JSONArray asksArr = jsonobj.getJSONArray("asks");
+		JSONArray bidsArr = jsonobj.getJSONArray("bids");
 		if(asksArr==null || bidsArr==null
 				|| asksArr.size()==0 || bidsArr.size()==0)
 			return null;
@@ -45,34 +47,34 @@ public class AexService extends LogService implements BaseService{
 		return ab;
 	}
 
-	@Override
-	public List<String> queryUnfinish(Balance bl) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void order(Balance bl) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cancelOrder(String orderId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Balance getBalance(Balance bl) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Balance getPrecision(String currency, String market) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<String> queryUnfinish(Balance bl) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public void order(Balance bl) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void cancelOrder(String orderId) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public Balance getBalance(Balance bl) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Balance getPrecision(String currency, String market) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
