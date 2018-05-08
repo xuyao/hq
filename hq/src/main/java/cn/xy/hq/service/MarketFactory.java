@@ -1,7 +1,12 @@
 package cn.xy.hq.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import cn.xy.hq.util.ConstsUtil;
 
 @Service
 public class MarketFactory {
@@ -24,6 +29,18 @@ public class MarketFactory {
 	CoinwService coinwService;
 	@Autowired
 	PoloniexService poloniexService;
+	@Autowired
+	BitfinexService bitfinexService;
+	
+	private Map<String,String> map = new HashMap<String,String>();
+	
+	public void initExgs(){
+		String exgs = ConstsUtil.getValue("exgs");
+		String[] exgarr = exgs.split(",");
+		for(String exg : exgarr){
+			map.put(exg, exg);
+		}
+	}
 	
 	public BaseService getMarketService(String market){
 		switch (market)
@@ -37,6 +54,7 @@ public class MarketFactory {
 		    case "aex":return aexService;
 		    case "coinw":return coinwService;
 		    case "poloniex":return poloniexService;
+//		    case "bitfinex":return bitfinexService;
 		    default:return null ;
 		}
 		
