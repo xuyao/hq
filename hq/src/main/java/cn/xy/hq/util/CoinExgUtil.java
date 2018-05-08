@@ -40,13 +40,13 @@ public class CoinExgUtil {
 		while(it.hasNext()){
 			String exn = (String)it.next();
 //			System.out.println(exn);
-			if(exn.endsWith("_usdt") || exn.endsWith("_btc") || exn.endsWith("_eth")){
-				if(map.get(exn)==null){
+			if(exn.endsWith("_USDT") || exn.endsWith("_BTC") || exn.endsWith("_ETH")){
+				if(map.get(exn.toLowerCase())==null){
 					list = new ArrayList<String>();
 					list.add("gateio");
-					map.put(exn, list);
+					map.put(exn.toLowerCase(), list);
 				}else{
-					list = map.get(exn);
+					list = map.get(exn.toLowerCase());
 					list.add("gateio");
 				}
 			}
@@ -161,7 +161,7 @@ public class CoinExgUtil {
 		
 		
 		/** aex */
-	    html = http.get("https://www.aex.com/httpAPIv2.php?n=0.5447456580455957");
+	    html = http.get("https://www.bit.cc/httpAPIv2.php?n=0.5447456580455957");
 	    jsonObj= JSONObject.parseObject(html);
 		keys = jsonObj.keySet();
 		it = keys.iterator();
@@ -238,7 +238,7 @@ public class CoinExgUtil {
 		boolean go = true;//是否写入
         while (itmap.hasNext()) {
             String s = (String)itmap.next();
-            if(s.startsWith("j")) {
+            if(s.startsWith("i")) {
             	go = false;
             	break;
             }
@@ -249,7 +249,7 @@ public class CoinExgUtil {
         itmap = map.keySet().iterator();
         while (itmap.hasNext()) {
         	String s = (String)itmap.next();
-        	if(s.startsWith("j")) {
+        	if(s.startsWith("i")) {
         		go = true;
         	}
         	if(s.startsWith("s")) {
