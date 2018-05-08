@@ -1,7 +1,12 @@
 package cn.xy.hq.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import cn.xy.hq.util.ConstsUtil;
 
 @Service
 public class MarketFactory {
@@ -24,6 +29,16 @@ public class MarketFactory {
 	CoinwService coinwService;
 	@Autowired
 	PoloniexService poloniexService;
+	
+	private Map<String,String> map = new HashMap<String,String>();
+	
+	public void initExgs(){
+		String exgs = ConstsUtil.getValue("exgs");
+		String[] exgarr = exgs.split(",");
+		for(String exg : exgarr){
+			map.put(exg, exg);
+		}
+	}
 	
 	public BaseService getMarketService(String market){
 		switch (market)

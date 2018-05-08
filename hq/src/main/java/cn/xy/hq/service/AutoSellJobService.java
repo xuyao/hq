@@ -19,6 +19,7 @@ public class AutoSellJobService extends LogService{
 //	boolean isfirst = true;
 //	Balance bl = null;
 	
+	
 	public void work(String exg, String currency, String market, String amount){
 		
 //		baseService = marketFactory.getMarketService(exg);
