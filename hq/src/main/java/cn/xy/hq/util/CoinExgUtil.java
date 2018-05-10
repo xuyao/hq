@@ -161,7 +161,8 @@ public class CoinExgUtil {
 		
 		
 		/** aex */
-	    html = http.get("https://www.aex.com/httpAPIv2.php?n=0.5447456580455957");
+//	    html = http.get("https://www.aex.com/httpAPIv2.php?n=0.5447456580455957");
+	    html = http.get("https://www.bit.cc/httpAPIv2.php?n=0.5447456580455957");
 	    jsonObj= JSONObject.parseObject(html);
 		keys = jsonObj.keySet();
 		it = keys.iterator();
