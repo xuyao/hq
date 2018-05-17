@@ -55,8 +55,10 @@ public class JobService extends LogService{
 				double totallow = abLow.getAsk1()*0.998;//exx 总共花费
 				double totalhigh = abHigh.getBid1()*0.998;//zb 总共花费
 				if((totalhigh-totallow)/totallow>percent){
-					logger.info(exname+" "+abLow.getExg()+"买："+NumberUtil.big(abLow.getAsk1(), 8) +" "+
-							abHigh.getExg()+"卖："+NumberUtil.big(abHigh.getBid1(), 8) +" "+(totalhigh/totallow-1));
+					logger.info(exname+" "+abLow.getExg()+"买："+NumberUtil.big(abLow.getAsk1(), 8) 
+							+"|"+ abLow.getAsk1_amount()+" "+
+							abHigh.getExg()+"卖："+NumberUtil.big(abHigh.getBid1(), 8) +"|"+abHigh.getBid1_amount()
+							+" "+(totalhigh/totallow-1));
 				}
 			}
 		}
