@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.xy.hq.service.AutoSellJobService;
 
-public class Sell {
+public class AutoMan {
 
     private static ApplicationContext context;
 

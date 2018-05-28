@@ -64,6 +64,8 @@ public class JobService extends LogService{
 							abHigh.getExg()+"卖："+NumberUtil.big(abHigh.getBid1(), 8) +"|"+abHigh.getBid1_amount()
 							+" "+(totalhigh/totallow-1));
 					sb.append("\n");
+					sb.append("-------------------------------------");
+					sb.append("\n");
 				}
 			}
 		}

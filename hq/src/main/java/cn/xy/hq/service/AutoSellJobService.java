@@ -5,30 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.xy.hq.vo.Balance;
+import cn.xy.hq.vo.AskBid;
 
 @Service
 public class AutoSellJobService extends LogService{
 	
-//	@Autowired
-//	MarketFactory marketFactory;
-//	
-//	@Autowired
-//	BaseService baseService;
-//	
-//	boolean isfirst = true;
-//	Balance bl = null;
+	@Autowired
+	MarketFactory marketFactory;
 	
+	@Autowired
+	OkexService okexService;
+	
+	List<String> list = null;
+	boolean isfirst = true;
+
 	
 	public void work(String exg, String currency, String market, String amount){
-		new HuobiService().batchcancel();
 		
-//		baseService = marketFactory.getMarketService(exg);
-//		
-//		if(isfirst) {
-//			bl = baseService.getPrecision(currency, market);
-//			isfirst = false;
-//		}
+		BaseService baseService = marketFactory.getMarketService(exg);
+		
+		//1、拿到btc_usdt交易价格
+		AskBid ab_btc_usdt = baseService.getAskBid("btc_usdt");
+		
+		//2、拿到usdt和btc各所有交易对
+		if(isfirst) {
+			list = okexService.getAllSymbol();
+			isfirst = false;
+		}
+
+		//3.比价
+		for(String s : list){
+			String[] arr = s.split(",");
+			AskBid ab_usdt = baseService.getAskBid(arr[0]);
+			AskBid ab_btc = baseService.getAskBid(arr[1]);
+			
+		}
+		
 //		
 //		//1、先查询未成交，并撤单
 //		List<String> orderids = baseService.queryUnfinish(bl);
@@ -50,7 +62,7 @@ public class AutoSellJobService extends LogService{
 		
 		
 		
-		System.out.println("------------sell");
+		System.out.println("------------auto run");
 	}
 	
 }
