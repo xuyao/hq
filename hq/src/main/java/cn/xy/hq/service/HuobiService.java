@@ -65,6 +65,15 @@ public class HuobiService extends LogService implements BaseService{
 	}
 	
 	
+	/** 批量撤单 */
+	public void batchcancel () {
+		String path = "/v1/order/orders/batchcancel";
+		 HashMap<String, String> map = new HashMap<String, String>();
+	     map.put("order-ids", "11111");
+	     TreeMap<String, String> treemap = buildQueryMap(map, path);
+	     System.out.println(new HttpService().post("https://api.huobipro.com", path, treemap));
+	}
+	
 	 /**查询未成交单据,返回未成交订单id，需要复写overwrite*/
 	public List<String> queryUnfinish(Balance bl) {
 		String path = "/v1/order/orders";

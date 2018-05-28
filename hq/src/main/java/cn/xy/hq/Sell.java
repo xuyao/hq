@@ -22,7 +22,7 @@ public class Sell {
 		while(true){
 			autoSellJobService.work(exg, symbol, market, amount);
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(50000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

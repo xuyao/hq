@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.xy.hq.util.ConstsUtil;
+import cn.xy.hq.util.MsgUtil;
 import cn.xy.hq.util.NumberUtil;
 import cn.xy.hq.vo.AskBid;
 import cn.xy.hq.vo.Exn;
@@ -23,6 +24,8 @@ public class JobService extends LogService{
 	
 	public void work(){
 		List<Exn> list = exnService.exnlist;
+		StringBuilder sb = new StringBuilder();
+		
 		for(Exn exn : list){
 			String exname = exn.getExn();//交易对
 			List<String> exgs = exn.getExgs();//交易所
@@ -51,16 +54,22 @@ public class JobService extends LogService{
 //				logger.info(exname+" 市场："+ab.getExg()+" 卖一："+ab.getAsk1() + " 买一："+ab.getBid1());
 			}
 			
+			
 			if(abLow !=null && abHigh != null){
 				double totallow = abLow.getAsk1()*0.998;//exx 总共花费
 				double totalhigh = abHigh.getBid1()*0.998;//zb 总共花费
 				if((totalhigh-totallow)/totallow>percent){
-					logger.info(exname+" "+abLow.getExg()+"买："+NumberUtil.big(abLow.getAsk1(), 8) 
+					sb.append(exname+" "+abLow.getExg()+"买："+NumberUtil.big(abLow.getAsk1(), 8) 
 							+"|"+ abLow.getAsk1_amount()+" "+
 							abHigh.getExg()+"卖："+NumberUtil.big(abHigh.getBid1(), 8) +"|"+abHigh.getBid1_amount()
 							+" "+(totalhigh/totallow-1));
+					sb.append("\n");
 				}
 			}
+		}
+		if(sb.length()!=0){
+			MsgUtil.sendText(sb.toString());
+			logger.info(sb.toString());
 		}
 		logger.info("**********************"+no);
 	}

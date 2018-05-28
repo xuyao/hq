@@ -21,6 +21,7 @@ public class AutoSellJobService extends LogService{
 	
 	
 	public void work(String exg, String currency, String market, String amount){
+		new HuobiService().batchcancel();
 		
 //		baseService = marketFactory.getMarketService(exg);
 //		
