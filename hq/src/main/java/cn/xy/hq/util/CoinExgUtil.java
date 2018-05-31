@@ -240,7 +240,6 @@ public class CoinExgUtil {
             String s = (String)itmap.next();
             if(s.startsWith("i")) {
             	go = false;
-            	break;
             }
             if(go)
             result1.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
@@ -254,7 +253,6 @@ public class CoinExgUtil {
         	}
         	if(s.startsWith("s")) {
         		go = false;
-        		break;
         	}
         	if(go)
             result2.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
