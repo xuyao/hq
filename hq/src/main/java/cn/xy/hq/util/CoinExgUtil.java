@@ -148,6 +148,12 @@ public class CoinExgUtil {
 		while(it.hasNext()){
 			String symbol = (String)it.next();
 //			System.out.println(symbol);
+			if(symbol.endsWith("_qc"))
+				continue;
+			
+			if(symbol.endsWith("_cnyt"))
+				symbol = symbol.replaceAll("_cnyt", "_qc");
+			
 			if(map.get(symbol)==null){
 				list = new ArrayList<String>();
 				list.add("exx");
