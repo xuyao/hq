@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.xy.hq.service.AutoSellJobService;
+import cn.xy.hq.service.MarketFactory;
 
 public class AutoMan {
 
@@ -14,13 +15,12 @@ public class AutoMan {
 //			return;
 		System.out.println("run autosell start!!!");
 		context = new ClassPathXmlApplicationContext("classpath:applicationContent.xml");
-		String exg = "huobi";
-		String symbol = "btc";
-		String market = "usdt";
-		String amount = "100";
+		String exg = "okex";
 		AutoSellJobService autoSellJobService = (AutoSellJobService)context.getBean("autoSellJobService");
+		MarketFactory marketFactory = (MarketFactory)context.getBean("marketFactory");
+		marketFactory.initExgs();
 		while(true){
-			autoSellJobService.work(exg, symbol, market, amount);
+			autoSellJobService.work(exg);
 			try {
 				Thread.sleep(50000);
 			} catch (InterruptedException e) {
