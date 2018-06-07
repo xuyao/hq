@@ -20,7 +20,7 @@ public class AutoSellJobService extends LogService{
 	boolean isfirst = true;
 
 	
-	public void work(String exg, String currency, String market, String amount){
+	public void work(String exg){
 		
 		BaseService baseService = marketFactory.getMarketService(exg);
 		
@@ -38,7 +38,19 @@ public class AutoSellJobService extends LogService{
 			String[] arr = s.split(",");
 			AskBid ab_usdt = baseService.getAskBid(arr[0]);
 			AskBid ab_btc = baseService.getAskBid(arr[1]);
+			//usdt交易对 除以 btc交易对
+			if(ab_usdt==null || ab_btc==null)
+				continue;
+			double comp = ab_usdt.getBid1() / ab_btc.getAsk1();
+			if(ab_btc_usdt.getAsk1() < comp)
+				System.out.println(s + ",买入btc_usdt:"+ab_btc_usdt.getAsk1()
+				+", 买入"+arr[1]+":"+ab_btc.getAsk1() + ",卖出"+arr[0]+":"+ab_usdt.getBid1());
 			
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 //		

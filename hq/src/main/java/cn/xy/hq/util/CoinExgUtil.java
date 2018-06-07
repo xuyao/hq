@@ -148,12 +148,6 @@ public class CoinExgUtil {
 		while(it.hasNext()){
 			String symbol = (String)it.next();
 //			System.out.println(symbol);
-			if(symbol.endsWith("_qc"))
-				continue;
-			
-			if(symbol.endsWith("_cnyt"))
-				symbol = symbol.replaceAll("_cnyt", "_qc");
-			
 			if(map.get(symbol)==null){
 				list = new ArrayList<String>();
 				list.add("exx");
@@ -236,6 +230,29 @@ public class CoinExgUtil {
 		}
 		
 		
+		/** bit-z : dkkt,btc,eth*/
+	    html = http.get("https://www.bit-z.com/api_v1/tickerall");
+	    jsonObj= JSONObject.parseObject(html).getJSONObject("data");
+		keys = jsonObj.keySet();
+		it = keys.iterator();
+		while(it.hasNext()){
+			String symbol = (String)it.next();
+			if(symbol.endsWith("_dkkt"))
+				symbol = symbol.replaceAll("_dkkt", "_qc");
+			if(symbol.endsWith("_usdt") || symbol.endsWith("_btc") 
+					|| symbol.endsWith("_eth")){
+				if(map.get(symbol)==null){
+					list = new ArrayList<String>();
+					list.add("bit-z");
+					map.put(symbol, list);
+				}else{
+					list = map.get(symbol);
+					list.add("bit-z");
+				}
+			}
+		}
+		
+		
 		/** write to file*/
 		List<String> result1 = new ArrayList<String>();
 		List<String> result2 = new ArrayList<String>();
@@ -246,6 +263,7 @@ public class CoinExgUtil {
             String s = (String)itmap.next();
             if(s.startsWith("i")) {
             	go = false;
+            	break;
             }
             if(go)
             result1.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));
@@ -259,6 +277,7 @@ public class CoinExgUtil {
         	}
         	if(s.startsWith("s")) {
         		go = false;
+        		break;
         	}
         	if(go)
             result2.add(s+":"+StringUtils.join(map.get(s).toArray(), ","));

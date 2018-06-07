@@ -31,6 +31,8 @@ public class MarketFactory {
 	PoloniexService poloniexService;
 	@Autowired
 	BitfinexService bitfinexService;
+	@Autowired
+	BitzService bitzService;
 	
 	private Map<String,String> map = new HashMap<String,String>();
 	
@@ -54,6 +56,7 @@ public class MarketFactory {
 		    case "aex":return (map.get("aex")==null?null:aexService);
 		    case "coinw":return (map.get("coinw")==null?null:coinwService);
 		    case "poloniex":return (map.get("poloniex")==null?null:poloniexService);
+		    case "bit-z":return (map.get("bit-z")==null?null:bitzService);
 //		    case "bitfinex":return (map.get("bitfinex")==null?null:bitfinexService);
 		    default:return null ;
 		}
