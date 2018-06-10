@@ -22,15 +22,15 @@ public class Hq {
 		CoinwService coinwService = (CoinwService)context.getBean("coinwService");
 		coinwService.init();
 		
-		JobService jobService = (JobService)context.getBean("jobService");
-		while(true){
-			jobService.work();
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+//		JobService jobService = (JobService)context.getBean("jobService");
+//		while(true){
+//			jobService.work();
+//			try {
+//				Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
     }
 
 }

@@ -17,7 +17,9 @@ import cn.xy.hq.vo.Exn;
 @Service
 public class ExnService extends LogService{
 	
-	public List<Exn> exnlist = new ArrayList<Exn>();
+	public List<Exn> exnlist1 = null;
+	public List<Exn> exnlist2 = null;
+	public List<Exn> exnlist3 = null;
 	public Map<String,List<String>> blackmap = new HashMap<String,List<String>>();;
 	
 	public void parse(){
@@ -37,9 +39,15 @@ public class ExnService extends LogService{
 	    }
 	    
 	    
-	    
+	    exnlist1 = init("coinexg1.txt");
+	    exnlist2 = init("coinexg2.txt");
+	    exnlist3 = init("coinexg3.txt");
+	}
+	
+	private List<Exn> init(String coinexg){
+		List<Exn> exnlist = new ArrayList<Exn>();
 		//exn init
-		URL url = ExnService.class.getClassLoader().getResource("coinexg.txt");
+		URL url = ExnService.class.getClassLoader().getResource(coinexg);
 	    File file = new File(url.getFile());
 		List<String> txts = null;
 		try {
@@ -58,8 +66,7 @@ public class ExnService extends LogService{
 			exn.setExgs(ll);
 			exnlist.add(exn);
 		}
-		
-
+		return exnlist;
 	}
 
 }

@@ -13,4 +13,62 @@
       	   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
  
 	<context:component-scan base-package="cn.xy.hq.service" />
+	
+	<bean id="hq1JobDetail"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="jobService"></property>
+        <property name="targetMethod" value="work1"></property>
+        <property name="concurrent" value="false" />
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+    </bean>
+	<bean id="hq1Triggers" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="hq1JobDetail">
+        </property>
+        <property name="cronExpression">
+            <value>10/40 * * * * ?</value>
+        </property>
+    </bean>
+    
+    <bean id="hq2JobDetail"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="jobService"></property>
+        <property name="targetMethod" value="work2"></property>
+        <property name="concurrent" value="false" />
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+    </bean>
+	<bean id="hq2Triggers" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="hq2JobDetail">
+        </property>
+        <property name="cronExpression">
+            <value>20/40 * * * * ?</value>
+        </property>
+    </bean>
+    
+    
+    <bean id="hq3JobDetail"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="jobService"></property>
+        <property name="targetMethod" value="work3"></property>
+        <property name="concurrent" value="false" />
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+    </bean>
+	<bean id="hq3Triggers" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="hq3JobDetail">
+        </property>
+        <property name="cronExpression">
+            <value>30/40 * * * * ?</value>
+        </property>
+    </bean>
+    
+    
+	<bean id="myScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="hq1Triggers"></ref>
+                <ref bean="hq2Triggers"></ref>
+                <ref bean="hq3Triggers"></ref>
+            </list>
+        </property>
+        <property name="autoStartup" value="true"></property>
+    </bean>
 </beans>

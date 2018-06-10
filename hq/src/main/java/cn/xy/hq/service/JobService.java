@@ -19,11 +19,24 @@ public class JobService extends LogService{
 	@Autowired
 	MarketFactory marketFactory;
 	
-	String no = ConstsUtil.getValue("no");
 	double percent = Double.parseDouble(ConstsUtil.getValue("percent"));
 	
-	public void work(){
-		List<Exn> list = exnService.exnlist;
+	public void work1(){
+		List<Exn> list = exnService.exnlist1;
+		go(list, "1");
+	}
+	
+	public void work2(){
+		List<Exn> list = exnService.exnlist2;
+		go(list, "2");
+	}
+	
+	public void work3(){
+		List<Exn> list = exnService.exnlist3;
+		go(list, "3");
+	}
+	
+	private void go(List<Exn> list, String no) {
 		StringBuilder sb = new StringBuilder();
 		
 		for(Exn exn : list){
@@ -53,7 +66,6 @@ public class JobService extends LogService{
 					abHigh = ab;
 //				logger.info(exname+" 市场："+ab.getExg()+" 卖一："+ab.getAsk1() + " 买一："+ab.getBid1());
 			}
-			
 			
 			if(abLow !=null && abHigh != null){
 				double totallow = abLow.getAsk1()*0.998;//exx 总共花费
